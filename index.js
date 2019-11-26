@@ -54,10 +54,10 @@ const server = new ApolloServer(options);
 const app = express();
 
 // TODO: Use environment variable
-var whitelist = ['http://localhost:3000']
+var whitelist = ['http://localhost:5000']
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
