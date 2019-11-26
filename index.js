@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { ApolloServer, gql } = require('apollo-server-express');
 const PORT = process.env.PORT || 5000
 
@@ -51,6 +52,21 @@ const options = {
 const server = new ApolloServer(options);
 
 const app = express();
+
+// TODO: Use environment variable
+var whitelist = ['http://localhost:3000']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+app.use(cors(corsOptions));
+
 server.applyMiddleware({ app });
 
 app.listen({ port: PORT }, () =>
