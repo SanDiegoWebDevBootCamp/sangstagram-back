@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="0" time="0.912">
+  <testsuite name="registerRoute" errors="0" failures="0" skipped="0" timestamp="2019-11-29T06:17:01" time="0.431" tests="1">
+    <testcase classname="registerRoute should register a route with a handler" name="registerRoute should register a route with a handler" time="0.003">
+    </testcase>
+  </testsuite>
+</testsuites>
