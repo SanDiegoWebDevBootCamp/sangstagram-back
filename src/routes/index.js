@@ -1,5 +1,6 @@
 const { login } = require('./login');
 const { logout } = require('./logout');
+const { registerRoute } = require('./register')
 
 const routes = [
   login,
@@ -7,10 +8,7 @@ const routes = [
 ];
 
 const register = (app) => {
-  routes.map((route) => {
-    const { verb, path, handler } = route;
-    app[verb](path, handler);
-  });
+  routes.map((route) => registerRoute(app, route)
 };
 
 module.exports = {
