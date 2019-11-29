@@ -1,5 +1,7 @@
+const books = require('../data/books');
+
 module.exports = {
   Query: {
-    books: () => console.log('books');
+    books: () => books,
   }
 }
