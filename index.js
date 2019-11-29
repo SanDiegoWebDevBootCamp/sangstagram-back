@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const PORT = process.env.PORT || 5000
 
+const { register: registerRoutes } = require('./src/routes');
+
 const { ApolloServer } = require('apollo-server-express');
 const typeDefs = require('./src/graphql/typeDefs');
 const resolvers = require('./src/graphql/resolvers');
@@ -28,6 +30,8 @@ var corsOptions = {
 }
 
 app.use(cors(corsOptions));
+
+registerRoutes(app);
 
 server.applyMiddleware({ app });
 
