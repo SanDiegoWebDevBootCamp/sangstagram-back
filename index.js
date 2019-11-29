@@ -3,8 +3,8 @@ const cors = require('cors');
 const PORT = process.env.PORT || 5000
 
 const { ApolloServer } = require('apollo-server-express');
-const typeDefs = require('./src/graphql/typeDefs/index');
-const resolvers = require('./src/graphql/resolvers/index');
+const typeDefs = require('./src/graphql/typeDefs');
+const resolvers = require('./src/graphql/resolvers');
 
 const server = new ApolloServer({
   typeDefs,
