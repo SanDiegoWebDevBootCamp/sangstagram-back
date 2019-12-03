@@ -4,5 +4,5 @@ const registerRoute = (app, route) => {
 };
 
 module.exports = {
-    registerRoute
-}
+    registerRoute,
+};

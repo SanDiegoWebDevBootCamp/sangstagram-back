@@ -1,7 +1,9 @@
-const books = require('../data/books');
+const { getBooks } = require('./books');
+const { getPosts } = require('./posts');
 
 module.exports = {
-  Query: {
-    books: () => books,
-  }
-}
+    Query: {
+        books: getBooks,
+        posts: getPosts,
+    },
+};
