@@ -1,6 +1,11 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+
+  scalar Date
+  scalar Time
+  scalar DateTime
+
   type Company {
     name: String!,
     catchPhrase: String,
@@ -36,7 +41,7 @@ const typeDefs = gql`
     id: ID!,
     comment: String!,
     user: User!,
-    date: String!
+    date: DateTime!
   }
 
   type Post {
@@ -46,7 +51,7 @@ const typeDefs = gql`
     user: User!,
     isPublic: Boolean!,
     likes: Int!,
-    datePublished: String!,
+    datePublished: DateTime!,
     comments: [Comment]!
 
   }
