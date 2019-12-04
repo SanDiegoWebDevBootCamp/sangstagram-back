@@ -34,7 +34,8 @@ const typeDefs = gql`
     address: Address,
     phone: String,
     website: String,
-    company: Company
+    company: Company,
+    following: [User]!
   }
   
   type Comment {

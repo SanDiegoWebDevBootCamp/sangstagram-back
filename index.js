@@ -19,7 +19,7 @@ const server = new ApolloServer({
 const app = express();
 
 // TODO: Use environment variable
-const whitelist = ['http://localhost:3000', 'http://localhost:5000'];
+const whitelist = process.env.CORS_WHITELIST.split(',');
 const corsOptions = {
     origin: (origin, callback) => {
         console.log('origin', origin);
