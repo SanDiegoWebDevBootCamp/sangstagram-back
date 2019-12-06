@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const { ApolloServer } = require('apollo-server-express');
+const { passport } = require('./src/auth');
 
 const PORT = process.env.PORT || 5000;
 
-const { ApolloServer } = require('apollo-server-express');
 const { register: registerRoutes } = require('./src/routes');
 
 const typeDefs = require('./src/graphql/typeDefs');
@@ -31,8 +32,22 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(passport.initialize());
+// app.use(passport.session());
+
+// TODO: Move to 'routes' directory
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/plus.login'],
+}));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    (req, res) => {
+        res.redirect('/');
+    });
 
 registerRoutes(app);
+
 
 server.applyMiddleware({ app });
 

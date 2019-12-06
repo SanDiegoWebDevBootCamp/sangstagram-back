@@ -1,11 +1,13 @@
-const passport = require('passport-http-bearer');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 
-passport.use(new BearerStrategy(
-    ((token, done) => {
-        User.findOne({ token }, (err, user) => {
-            if (err) { return done(err); }
-            if (!user) { return done(null, false); }
-            return done(null, user, { scope: 'read' });
-        });
-    }),
-));
+const User = {
+    username: 'justinyum98',
+    password: 'fakepassword',
+};
+
+module.exports = {
+    passport,
+};

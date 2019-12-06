@@ -31,5 +31,6 @@ const buildPosts = (numberOfPosts) => range(0, numberOfPosts).map(() => (
 const getPosts = () => (buildPosts(Math.ceil(Math.random() * 10)));
 
 module.exports = {
+    buildUser,
     getPosts,
 };
