@@ -11,7 +11,12 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/index.js"
+			"program": "${workspaceFolder}/index.js",
+			"env": {
+				"CORS_WHITELIST": "http://localhost:3000,http://localhost:5000",
+				"GOOGLE_OAUTH_CLIENT_ID": "704282885018-9vrt6glo5h2f3bg5c13999rkle38ul9s.apps.googleusercontent.com",
+				"GOOGLE_OAUTH_CLIENT_SECRET": "Xy54o7Oj6ag7-CGdvRbtryp9",
+			},
 		}
 	]
 }
