@@ -70,7 +70,8 @@ const typeDefs = gql`
   # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
     books: [Book],
-    posts: [Post]
+    posts: [Post],
+    following: [User]
   }
 `;
 
