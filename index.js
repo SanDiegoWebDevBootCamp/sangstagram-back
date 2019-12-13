@@ -37,15 +37,17 @@ app.use(passport.initialize());
 // app.use(passport.session());
 
 // TODO: Move to 'routes' directory
-app.get('/auth/google', passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/plus.login'],
+app.get('/auth/google', passport.authenticate('google-oauth-jwt', {
+    callbackUrl: 'http://localhost:5000/auth/google/callback',
+    scope: 'email',
 }));
 
-app.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    (req, res) => {
-        res.redirect('/');
-    });
+app.get('/auth/google/callback', passport.authenticate('google-oauth-jwt', {
+    callbackUrl: 'http://localhost:5000/auth/google/callback',
+}), (req, res) => {
+    console.log('authenticated successfully');
+    res.redirect('/');
+});
 
 registerRoutes(app);
 
