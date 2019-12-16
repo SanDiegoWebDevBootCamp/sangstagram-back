@@ -1,23 +1,18 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-
-const User = {
-    username: 'justinyum98',
-    password: 'fakepassword',
-};
+const GoogleStrategy = require('passport-google-oauth-jwt').GoogleOauthJWTStrategy;
 
 passport.use(new GoogleStrategy(
     {
         clientID: process.env.GOOGLE_OAUTH_CLIENT_ID,
         clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
-        callbackURL: 'http://localhost:5000/auth/google/callback',
     },
-    (accessToken, refreshToken, profile, done) => {
-        console.log('profile:', profile);
-        return done(null, User);
+    (accessToken, loginInfo, refreshToken, done) => {
+        const user = {
+            username: 'justinyum98',
+            password: 'fakepassword',
+            email: loginInfo.email,
+        };
+        return done(null, user);
     },
 ));
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
+const jwt = require('jsonwebtoken');
 const { passport } = require('./src/auth');
 
 const PORT = process.env.PORT || 5000;
@@ -23,7 +24,6 @@ const app = express();
 const whitelist = process.env.CORS_WHITELIST.split(',');
 const corsOptions = {
     origin: (origin, callback) => {
-        console.log('request from', origin);
         if (whitelist.indexOf(origin) !== -1 || !origin) {
             callback(null, true);
         } else {
@@ -34,18 +34,24 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(passport.initialize());
-// app.use(passport.session());
 
-// TODO: Move to 'routes' directory
-app.get('/auth/google', passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/plus.login'],
+app.get('/auth/google', passport.authenticate('google-oauth-jwt', {
+    callbackUrl: 'http://localhost:5000/auth/google/callback',
+    scope: 'email',
 }));
 
-app.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    (req, res) => {
-        res.redirect('/');
+app.get('/auth/google/callback', passport.authenticate('google-oauth-jwt', {
+    callbackUrl: 'http://localhost:5000/auth/google/callback',
+}), (req, res) => {
+    const token = jwt.sign({
+        email: 'justinyum98@gmail.com',
+    }, process.env.JWT_SECRET, {
+        expiresIn: '14d',
     });
+    res.json({
+        jwt: token,
+    });
+});
 
 registerRoutes(app);
 
