@@ -36,12 +36,12 @@ app.use(cors(corsOptions));
 app.use(passport.initialize());
 
 app.get('/auth/google', passport.authenticate('google-oauth-jwt', {
-    callbackUrl: 'http://localhost:5000/auth/google/callback',
+    callbackUrl: process.env.GOOLGE_OAUTH_CALLBACK_URL,
     scope: 'email',
 }));
 
 app.get('/auth/google/callback', passport.authenticate('google-oauth-jwt', {
-    callbackUrl: 'http://localhost:5000/auth/google/callback',
+    callbackUrl: process.env.GOOLGE_OAUTH_CALLBACK_URL,
 }), (req, res) => {
     const token = jwt.sign({
         email: 'justinyum98@gmail.com',

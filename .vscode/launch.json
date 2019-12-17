@@ -14,6 +14,7 @@
 			"program": "${workspaceFolder}/index.js",
 			"env": {
 				"CORS_WHITELIST": "http://localhost:3000,http://localhost:5000",
+				"GOOLGE_OAUTH_CALLBACK_URL": "http://localhost:5000/auth/google/callback",
 				"GOOGLE_OAUTH_CLIENT_ID": "704282885018-9vrt6glo5h2f3bg5c13999rkle38ul9s.apps.googleusercontent.com",
 				"GOOGLE_OAUTH_CLIENT_SECRET": "Xy54o7Oj6ag7-CGdvRbtryp9",
 				"JWT_SECRET": "3f7bdf6d659cf0307bb15b446285d4e1",
