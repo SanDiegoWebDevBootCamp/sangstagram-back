@@ -20,6 +20,8 @@ const server = new ApolloServer({
 
 const app = express();
 
+app.use(express.static('public'));
+
 // TODO: Use environment variable
 const whitelist = process.env.CORS_WHITELIST.split(',');
 const corsOptions = {
@@ -53,8 +55,9 @@ app.get('/auth/google/callback', passport.authenticate('google-oauth-jwt', {
     });
 });
 
-registerRoutes(app);
 
+
+registerRoutes(app);
 
 server.applyMiddleware({ app });
 
