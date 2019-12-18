@@ -3,6 +3,7 @@ const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 const jwt = require('jsonwebtoken');
 const { passport } = require('./src/auth');
+const db = require('./src/database');
 
 const PORT = process.env.PORT || 5000;
 
@@ -38,12 +39,12 @@ app.use(cors(corsOptions));
 app.use(passport.initialize());
 
 app.get('/auth/google', passport.authenticate('google-oauth-jwt', {
-    callbackUrl: process.env.GOOLGE_OAUTH_CALLBACK_URL,
+    callbackUrl: process.env.GOOGLE_OAUTH_CALLBACK_URL,
     scope: 'email',
 }));
 
 app.get('/auth/google/callback', passport.authenticate('google-oauth-jwt', {
-    callbackUrl: process.env.GOOLGE_OAUTH_CALLBACK_URL,
+    callbackUrl: process.env.GOOGLE_OAUTH_CALLBACK_URL,
 }), (req, res) => {
     const token = jwt.sign({
         email: 'justinyum98@gmail.com',
