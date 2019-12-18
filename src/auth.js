@@ -1,18 +1,16 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth-jwt').GoogleOauthJWTStrategy;
+const User = require('./database/models/user');
 
 passport.use(new GoogleStrategy(
     {
-        clientID: process.env.GOOGLE_OAUTH_CLIENT_ID,
+        clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
         clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
     },
     (accessToken, loginInfo, refreshToken, done) => {
-        const user = {
-            username: 'justinyum98',
-            password: 'fakepassword',
+        User.findOrCreate({
             email: loginInfo.email,
-        };
-        return done(null, user);
+        }, (err, user) => done(err, user));
     },
 ));
 
