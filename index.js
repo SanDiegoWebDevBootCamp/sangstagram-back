@@ -23,7 +23,7 @@ app.get('/auth/google', passport.authenticate('google-oauth-jwt', {
 app.get('/auth/google/callback', passport.authenticate('google-oauth-jwt', {
     callbackUrl: process.env.GOOGLE_OAUTH_CALLBACK_URL,
 }), (req, res) => {
-    res.cookie('jwt', generateJwt());
+    res.cookie('jwt', generateJwt(req.user));
     res.redirect(process.env.GOOGLE_OAUTH_SUCCESS_REDIRECT_URL);
 });
 registerRoutes(app);
