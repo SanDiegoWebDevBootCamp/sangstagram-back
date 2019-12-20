@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 
-const generateJwt = () => {
+const generateJwt = ({ email }) => {
     const payload = {
-        email: 'justinyum98@gmail.com',
+        email,
     };
     const options = {
         expiresIn: '14d',
