@@ -18,7 +18,9 @@
 				"GOOGLE_OAUTH_CLIENT_SECRET": "Xy54o7Oj6ag7-CGdvRbtryp9",
 				"GOOGLE_OAUTH_CALLBACK_URL": "http://localhost:5000/auth/google/callback",
 				"JWT_SECRET": "3f7bdf6d659cf0307bb15b446285d4e1",
-				"MONGODB_URI": "mongodb://heroku_5b5l4cl7:v57dald0ddgjlue0vv16q8o48p@ds211875.mlab.com:11875/heroku_5b5l4cl7"
+				"MONGODB_URI": "mongodb://heroku_5b5l4cl7:v57dald0ddgjlue0vv16q8o48p@ds211875.mlab.com:11875/heroku_5b5l4cl7",
+				"GOOGLE_OAUTH_SUCCESS_REDIRECT_URL": "http://localhost:3000/",
+				"GOOGLE_OAUTH_FAILURE_REDIRECT_URL": "http://localhost:3000/error"
 			},
 		}
 	]
