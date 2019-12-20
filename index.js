@@ -51,12 +51,9 @@ app.get('/auth/google/callback', passport.authenticate('google-oauth-jwt', {
     }, process.env.JWT_SECRET, {
         expiresIn: '14d',
     });
-    res.json({
-        jwt: token,
-    });
+    res.cookie('jwt', token);
+    res.redirect(process.env.GOOGLE_OAUTH_SUCCESS_REDIRECT_URL);
 });
-
-
 
 registerRoutes(app);
 
