@@ -9,7 +9,9 @@ const opts = {
 };
 
 const createStrategy = (passport, findUser) => {
-    return new Strategy(opts, (jwtPayload, done) => findUser(jwtPayload, done));
+    return new Strategy(opts, (jwtPayload, done) => {
+        findUser(jwtPayload, done);
+    });
 };
 
 module.exports = createStrategy;

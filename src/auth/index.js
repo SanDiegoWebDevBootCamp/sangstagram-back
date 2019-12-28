@@ -1,11 +1,11 @@
 const passport = require('passport');
-const generateJwt = require('./token');
+const { generateJwt } = require('./token');
 const User = require('../database/models/user');
 const initializeStrategies = require('./strategies');
 
 const scope = [
-    'https://www.googleapis.com/auth/plus.login',
-    'https://www.googleapis.com/auth/plus.profile.emails.read',
+    'profile',
+    'email',
 ];
 
 const findUser = (userInfo, done) => {
@@ -22,7 +22,7 @@ const findUser = (userInfo, done) => {
 };
 
 const initializeAuth = (app) => {
-    passport.initialize();
+    app.use(passport.initialize());
     initializeStrategies(passport, findUser);
 
     passport.serializeUser((user, done) => done(null, user));
