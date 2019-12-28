@@ -1,10 +1,9 @@
 const express = require('express');
 const { connectDatabase } = require('./src/database');
-const { passport } = require('./src/auth');
 const { buildApolloServer } = require('./src/graphql');
 const { register: registerRoutes } = require('./src/routes');
 const { initializeCors } = require('./src/cors');
-const { generateJwt } = require('./src/token');
+const { initializeAuth } = require('./src/auth');
 
 const PORT = process.env.PORT || 5000;
 
@@ -14,18 +13,8 @@ connectDatabase();
 
 app.use(express.static('public'));
 app.use(initializeCors());
-app.use(passport.initialize());
 
-app.get('/auth/google', passport.authenticate('google-oauth-jwt', {
-    callbackUrl: process.env.GOOGLE_OAUTH_CALLBACK_URL,
-    scope: 'email',
-}));
-app.get('/auth/google/callback', passport.authenticate('google-oauth-jwt', {
-    callbackUrl: process.env.GOOGLE_OAUTH_CALLBACK_URL,
-}), (req, res) => {
-    res.cookie('jwt', generateJwt(req.user));
-    res.redirect(process.env.GOOGLE_OAUTH_SUCCESS_REDIRECT_URL);
-});
+initializeAuth(app);
 registerRoutes(app);
 
 const apolloServer = buildApolloServer();
