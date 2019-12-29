@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { find } = require('lodash');
 
 const connectDatabase = () => {
     mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
@@ -10,6 +11,20 @@ const connectDatabase = () => {
     });
 };
 
+const usersDb = [];
+
+const findOrCreateUser = (user, done) => {
+    const userInDb = find(usersDb, { email: user.email });
+    if (!userInDb) {
+        usersDb.push(user);
+    }
+    return done(null, user);
+};
+
+const getUser = (email) => find(usersDb, { email });
+
 module.exports = {
     connectDatabase,
+    findOrCreateUser,
+    getUser,
 };

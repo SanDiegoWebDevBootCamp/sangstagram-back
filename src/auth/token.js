@@ -11,6 +11,9 @@ const generateJwt = ({ googleId, email }) => {
     return jwt.sign(payload, process.env.JWT_SECRET, options);
 };
 
+const decodeJwt = (token) => jwt.verify(token, process.env.JWT_SECRET);
+
 module.exports = {
     generateJwt,
+    decodeJwt,
 };

@@ -7,10 +7,7 @@ const createStrategy = (password, findUser) => {
         callbackURL: process.env.GOOGLE_OAUTH_CALLBACK_URL,
         passReqToCallback: true,
     }, (request, accessToken, refreshToken, profile, done) => {
-        const userInfo = {
-            googleId: profile.id,
-        };
-        findUser(userInfo, done);
+        findUser(profile, done);
     });
 };
 
