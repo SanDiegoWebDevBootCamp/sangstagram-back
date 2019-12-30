@@ -36,6 +36,7 @@ const typeDefs = gql`
     website: String,
     company: Company,
     following: [User]!
+    followers: [User]!
   }
   
   type Comment {
@@ -72,6 +73,12 @@ const typeDefs = gql`
     books: [Book],
     posts: [Post],
     following: [User]
+  }
+
+  type Mutation {
+    addPost: Post!,
+    addComment: String,
+    deletePost: String
   }
 `;
 

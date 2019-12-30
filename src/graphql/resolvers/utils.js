@@ -34,4 +34,5 @@ module.exports = {
     buildUsers,
     buildComments,
     buildPosts,
+    buildPost,
 };
