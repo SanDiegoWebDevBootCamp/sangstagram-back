@@ -1,7 +1,7 @@
 const passport = require('passport');
 const { generateJwt } = require('./token');
 const initializeStrategies = require('./strategies');
-const { findOrCreateUser } = require('../database');
+const { findOrCreateUser } = require('../database/dataAccess/user');
 
 const scope = [
     'profile',

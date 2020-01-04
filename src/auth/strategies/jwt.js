@@ -8,9 +8,11 @@ const opts = {
     audience: 'sangstagram.com',
 };
 
-const createStrategy = (passport, findUser) => {
+const createStrategy = (passport, findOrCreateUser) => {
     return new Strategy(opts, (jwtPayload, done) => {
-        findUser(jwtPayload, done);
+        findOrCreateUser(jwtPayload)
+            .then((user) => done(null, user))
+            .catch(done);
     });
 };
 

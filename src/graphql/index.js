@@ -1,7 +1,7 @@
 const { ApolloServer } = require('apollo-server-express');
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
-const { getUser } = require('../database');
+const { getUser } = require('../database/dataAccess/user');
 const { decodeJwt } = require('../auth/token');
 
 const buildApolloServer = () => new ApolloServer({
@@ -12,10 +12,7 @@ const buildApolloServer = () => new ApolloServer({
         const token = req.headers.authorization.split(' ')[1] || '';
         const { email } = decodeJwt(token);
         // try to retrieve a user with the token
-        const user = getUser(email);
-
-        // add the user to the context
-        return { user };
+        getUser(email, (err, user) => ({ user }));
     },
     introspection: true,
     playground: true,

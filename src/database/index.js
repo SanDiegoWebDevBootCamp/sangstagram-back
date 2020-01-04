@@ -1,30 +1,19 @@
 const mongoose = require('mongoose');
-const { find } = require('lodash');
+
+const mongoDB = process.env.MONGODB_URI;
 
 const connectDatabase = () => {
-    mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+    mongoose.connect(mongoDB, { useNewUrlParser: true });
     const db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', () => {
-        // we're connected
-        console.log('I am connected');
-    });
+    db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+    db.on('once', () => console.log('I am connected'));
 };
 
-const usersDb = [];
-
-const findOrCreateUser = (user, done) => {
-    const userInDb = find(usersDb, { email: user.email });
-    if (!userInDb) {
-        usersDb.push(user);
-    }
-    return done(null, user);
+const disconnectDatabase = () => {
+    mongoose.close();
 };
-
-const getUser = (email) => find(usersDb, { email });
 
 module.exports = {
     connectDatabase,
-    findOrCreateUser,
-    getUser,
+    disconnectDatabase,
 };

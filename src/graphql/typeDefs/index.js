@@ -55,7 +55,11 @@ const typeDefs = gql`
     likes: Int!,
     datePublished: DateTime!,
     comments: [Comment]!
+  }
 
+  input PostInput {
+    photo: Upload!,
+    caption: String!
   }
 
   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
@@ -76,9 +80,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addPost: Post!,
-    addComment: String,
-    deletePost: String
+    addNewPost(newPost: PostInput!): Post!,
   }
 `;
 
