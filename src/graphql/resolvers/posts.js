@@ -7,22 +7,21 @@ const getPosts = () => {
     return buildPosts(faker.random.number(10));
 };
 
-const addNewPost = (parent, args, context) => {
-    const { photo, caption } = args;
+const addNewPost = async (parent, args, context) => {
     const { user } = context;
 
-    return photo.then((file) => {
-        return upload(file)
-            .then((result) => {
-                const post = {
-                    user,
-                    photoUrl: result.secureUrl,
-                    caption,
-                };
+    try {
+        const file = await args.photo;
+        const uploadResult = await upload(file.stream);
 
-                return createPost(post);
-            });
-    });
+        return createPost({
+            user,
+            photoUrl: uploadResult.secureUrl,
+            caption: args.caption,
+        });
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 module.exports = {

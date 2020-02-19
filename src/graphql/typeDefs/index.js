@@ -57,11 +57,6 @@ const typeDefs = gql`
     comments: [Comment]!
   }
 
-  input PostInput {
-    photo: Upload!,
-    caption: String!
-  }
-
   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
   # This "Book" type defines the queryable fields for every book in our data source.
@@ -80,7 +75,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addNewPost(newPost: PostInput!): Post!,
+    addNewPost(photo: Upload!, caption: String!): Post!,
   }
 `;
 
